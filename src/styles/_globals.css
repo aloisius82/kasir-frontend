@@ -13,3 +13,7 @@
 .v-btn:active {
   transform: translateY(1.2px);
 }
+
+.bg-bar-head {
+  background-color: rgb(21, 108, 238);
+}

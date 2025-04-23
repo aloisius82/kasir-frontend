@@ -29,26 +29,28 @@
           />
         </div>
       </div>
-
       <VListItem
         v-ripple="false"
-        active-color="primary"
+        color="primary"
         prepend-icon="$mdiHomeOutline"
         title="Dashboard"
         to="/"
       />
       <VListItem
+        v-for="menu in menus"
+        :key="menu.to"
+        :prepend-icon="menu.icon || '$mdiHomeOutline'"
+        :title="menu.title"
+        :to="menu.to"
         v-ripple="false"
-        active-color="primary"
-        prepend-icon="$mdiHomeOutline"
-        title="Playground"
-        to="/playground"
-        @click.stop
-      />
+        color="primary"
+      >
+      </VListItem>
     </VList>
   </VNavigationDrawer>
 </template>
 
 <script setup>
+const { menus } = toRefs(useAppStore())
 const rail = ref(false)
 </script>
