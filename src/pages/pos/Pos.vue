@@ -2,8 +2,14 @@
   <VContainer fluid>
     <VRow>
       <VCol cols="6">
-        <VAutocomplete v-model="selectedBarang" :items="daftarBarang" item-title="nama" label="Cari Barang"
-          return-object="true" @update:model-value="updateHarga"></VAutocomplete>
+        <VAutocomplete
+          v-model="selectedBarang"
+          :items="daftarBarang"
+          item-title="nama"
+          label="Cari Barang"
+          return-object="true"
+          @update:model-value="updateHarga"
+        ></VAutocomplete>
       </VCol>
       <VCol cols="1">
         <VTextField v-model.number="quantity" label="Jumlah"></VTextField>
@@ -63,7 +69,6 @@ const hargaSatuan = ref(0)
 const keranjang = ref([])
 const showPayment = ref(false)
 
-
 const headers = ref([
   { title: 'Nama Barang', key: 'nama' },
   { title: 'Jumlah', key: 'quantity', align: 'end' },
@@ -98,7 +103,6 @@ function tambahBarang() {
 }
 
 function bayar() {
-
   showPayment.value = true
 }
 
@@ -108,12 +112,11 @@ function onHidePayment(e) {
     case 'paid':
       keranjang.value = []
       total.value = 0
-      break;
+      break
     case 'hide':
-
-      break;
+      break
     default:
-      break;
+      break
   }
 }
 
