@@ -3,3 +3,5 @@
     <GAppBarMenuRight />
   </VAppBar>
 </template>
+
+<script setup></script>

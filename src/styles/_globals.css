@@ -17,3 +17,37 @@
 .bg-bar-head {
   background-color: rgb(21, 108, 238);
 }
+
+/* Print-specific styles for receipt printing */
+@media print {
+  /* Hide the entire app by default */
+  body * {
+    visibility: hidden;
+  }
+
+  /* Make the printable area and its children visible */
+  #printMe,
+  #printMe * {
+    visibility: visible;
+  }
+
+  /* Position the printable area at the top of the page */
+  #printMe {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+
+  /* Optional: Remove shadows and backgrounds from Vuetify components inside the print area */
+  #printMe .v-card,
+  #printMe .v-sheet {
+    box-shadow: none !important;
+    background-color: transparent !important;
+  }
+
+  /* Ensure the print dialog doesn't get hidden */
+  .v-dialog {
+    display: none !important;
+  }
+}

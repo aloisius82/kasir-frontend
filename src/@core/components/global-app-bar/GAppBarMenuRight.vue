@@ -1,9 +1,15 @@
 <template>
   <div class="fixed right-0 mr-5 flex items-center">
-    <GAppBarThemeSwitch />
-    <VBtn :icon="mdiIcon.mdiAccount" color="white" size="small" title="User" variant="text">{{
-      user || 'Quest'
-    }}</VBtn>
+    <VBtn
+      :enabled="isLogin"
+      :prepend-icon="mdiIcon.mdiAccountCircle"
+      color="white"
+      size="small"
+      title="User"
+      variant="text"
+      @click="goToProfile"
+      >{{ user || 'Quest' }}</VBtn
+    >
     <VBtn
       v-if="isLogin"
       :prepend-icon="mdiIcon.mdiLogout"
@@ -60,27 +66,38 @@ import { ref } from 'vue'
 import * as mdiIcon from '@mdi/js'
 import { jwtDecode } from 'jwt-decode'
 
+const router = useRouter()
 const store = useAppStore()
 const { token, user, isLogin, role } = toRefs(store)
-const { axiosPost } = store
+const { axiosPost, snackbar } = store
 const dialog = ref(false)
 
 const formData = ref({ username: '', password: '' })
 
+function goToProfile() {
+  router.push('/profile')
+}
+
 function doLogin() {
   dialog.value = false
   const { username, password } = formData.value
+  console.log('login test')
   axiosPost('/user/login', { username, password }, { auth: false })
     .then((res) => {
+      console.log(res)
       if (res.status == 201) {
         token.value = res.data.access_token
         user.value = res.data.username
         const decoded = jwtDecode(token.value)
         role.value = decoded.role
+        snackbar('Login successful', 'success')
+      } else {
+        snackbar('Login failed', 'error')
       }
     })
     .catch((e) => {
       console.log(e)
+      snackbar('Login failed : ' + e.message, 'error')
     })
   formData.value.password = ''
   formData.value.username = ''
@@ -90,6 +107,7 @@ function doLogout() {
   user.value = null
   token.value = null
   role.value = null
+  router.push('/')
   // this.$router.push('/')
   // $router
 }

@@ -89,7 +89,7 @@ export default defineConfig({
         // Turning off brotliSize display can slightly reduce packaging time
         reportCompressedSize: false,
 
-        sourcemap: true,
+        sourcemap: false,
 
         rollupOptions: {
             output: {

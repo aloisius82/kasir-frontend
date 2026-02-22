@@ -28,11 +28,10 @@ function capitalize(str) {
   return str[0].toUpperCase() + str.slice(1)
 }
 
-function isValidHttpUrl(str) {
-  const pattern = new RegExp(
-    '^((http|https)://)?((([a-zd]([a-zd-]*[a-zd]).)+[a-z]{2,3}|d{1,3}.(d{1,3}.(d{1,3}.(d{1,3})))))(:d+)?(/[-a-zd%_.~]*)*?'
-  )
-  return pattern.test(str)
+function isValidHttpUrl(url) {
+  const regex =
+    /^(https?:\/\/)(localhost|(\d{1,3}\.){3}\d{1,3}|[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})(:\d{1,5})?(\/[^\s]*)?$/
+  return regex.test(url)
 }
 
 export { cloneDeep, isObject, capitalize, useDebouncedRef, isValidHttpUrl }

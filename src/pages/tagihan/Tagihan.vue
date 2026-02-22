@@ -1,1 +1,3 @@
-<template>Hello from tagihan</template>
+<template>
+  <div>Comming Soon: Tagihan Page</div>
+</template>

@@ -10,7 +10,7 @@
     <VList nav>
       <div class="pa-2 mb-3 flex items-center justify-between">
         <RouterLink to="/">
-          <VImg src="/company_logos/logo.svg" width="150">
+          <VImg src="/company_logos/logo_apotek_pilang.jpeg" width="150">
             <template #placeholder>
               <div class="flex h-full items-center justify-center">
                 <VProgressCircular color="grey-lighten-4" indeterminate />
@@ -52,5 +52,5 @@
 
 <script setup>
 const { menus } = toRefs(useAppStore())
-const rail = ref(false)
+const rail = ref(true)
 </script>
