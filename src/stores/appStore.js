@@ -47,7 +47,10 @@ export const useAppStore = defineStore('global-application', {
   getters: {
     isDark: (state) => state.currentTheme === 'dark',
     isLogin: (state) => state.token !== null,
-    // pageTitle: (state) => state.pageTitle,
+    getPageTitle: (state) => { 
+    console.log('Getting page title:', state.pageTitle)  
+      return state.pageTitle.value.length > 0 ? `Apotek Pilang - ${state.pageTitle}` : 'Apotek Pilang'
+    }, 
     userName: (state) => {
       if (state.user && state.user.name) return state.user.name
       return 'Guest'
@@ -99,7 +102,10 @@ export const useAppStore = defineStore('global-application', {
       if (options.auth && this.token != null) headers.Authorization = `Bearer ${this.token}`
       const config = { headers }
       if (options.params) config.params = options.params
-      return axios.get(fullURL(url), config)
+      return axios.get(fullURL(url), config).catch((error) => {
+        console.log(error)
+        throw error
+      })
     },
     async axiosPost(url, data, options = defaultOptionPost) {
       url = fullURL(url)
@@ -175,6 +181,11 @@ export const useAppStore = defineStore('global-application', {
       } catch (error) {
         return { status: 404 }
       }
+    },
+    logout() {
+      this.token = null
+      this.user = null
+      this.role = null
     }
   }
 })

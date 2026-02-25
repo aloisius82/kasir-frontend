@@ -15,4 +15,7 @@ import Last7Days from './Last7Days.vue'
 import Public from './Public.vue'
 
 const appStore = useAppStore()
+onMounted(() => {
+  appStore.setPageTitle('Dashboard')
+})
 </script>

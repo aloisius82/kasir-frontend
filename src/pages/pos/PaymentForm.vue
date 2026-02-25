@@ -42,7 +42,7 @@
             variant="outlined"
           >
           </VCombobox>
-          <VTextField v-if="showRef" label="ref"> </VTextField>
+          <VTextField v-if="showRef" v-model="paymentRef" label="ref"> </VTextField>
           <div v-if="selectedTipe.value == 'cash'">
             <VBtn @click="addNominal(1000)">1.000</VBtn>
             <VBtn @click="addNominal(2000)">2.000</VBtn>
@@ -112,6 +112,7 @@ const showDialog = ref(false)
 const showRef = ref(false)
 const selectedTipe = ref(null)
 const status = ref(null)
+const paymentRef = ref('')
 
 const paid = ref(0)
 
@@ -199,7 +200,8 @@ function onPaidClick() {
 function buildPostData() {
   const data = {
     status: status.value,
-    tipePembayaran: selectedTipe.value.value,
+    paymentType: selectedTipe.value.value,
+    paymentRef: showRef.value ? paymentRef.value : null, // This should be replaced with actual ref if needed
     paid: paid.value,
     total: props.total,
     items: []

@@ -13,6 +13,8 @@
           <VCol cols="12" md="6">
             <div><strong>ID Transaksi:</strong> {{ transactionData.id }}</div>
             <div><strong>Kasir:</strong> {{ transactionData.user?.username }}</div>
+            <div><strong>Pembayaran:</strong> {{ transactionData.paymentType }}</div>
+            <div><strong>Ref:</strong> {{ transactionData.paymentRef }}</div>
           </VCol>
           <VCol cols="12" md="6" class="text-md-right">
             <div><strong>Tanggal:</strong> {{ formatDate(transactionData.createdAt) }}</div>

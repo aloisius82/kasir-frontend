@@ -104,9 +104,7 @@ function doLogin() {
 }
 
 function doLogout() {
-  user.value = null
-  token.value = null
-  role.value = null
+  store.logout()
   router.push('/')
   // this.$router.push('/')
   // $router

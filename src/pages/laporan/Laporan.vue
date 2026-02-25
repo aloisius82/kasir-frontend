@@ -34,4 +34,8 @@ const appStore = useAppStore()
 const lapBulananRole = ['admin']
 
 const tab = ref(null)
+
+onMounted(() => {
+  appStore.setPageTitle('Laporan')
+})
 </script>

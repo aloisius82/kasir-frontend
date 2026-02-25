@@ -1,7 +1,9 @@
 <template>
-  <VAppBar color="appbar-background" elevation="15" height="62" title="Kasir">
+  <VAppBar :title="getPageTitle" color="appbar-background" elevation="15" height="62">
     <GAppBarMenuRight />
   </VAppBar>
 </template>
 
-<script setup></script>
+<script setup>
+const { getPageTitle } = useAppStore()
+</script>

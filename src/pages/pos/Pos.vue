@@ -6,22 +6,11 @@
         <VCard class="fill-height">
           <VDataTable :headers="headers" :items="keranjang" class="fill-height">
             <template #item.id="{ item }">
-              <VBtn
-                :icon="mdiIcon.mdiDelete"
-                variant="text"
-                size="small"
-                @click="hapusBarang(item.columns.id)"
-              />
+              <VBtn :icon="mdiIcon.mdiDelete" variant="text" size="small" @click="hapusBarang(item.columns.id)" />
             </template>
             <template #item.quantity="{ item }">
-              <VTextField
-                v-model.number="item.columns.quantity"
-                type="number"
-                style="width: 100px"
-                density="compact"
-                hide-details
-                @update:model-value="(newQty) => onQtyChange(newQty, item.columns.id)"
-              />
+              <VTextField v-model.number="item.columns.quantity" type="number" style="width: 100px" density="compact"
+                hide-details @update:model-value="(newQty) => onQtyChange(newQty, item.columns.id)" />
             </template>
             <template #item.subtotal="{ item }">
               {{ formatCurrency(item.columns.quantity * item.columns.hargaSatuan) }}
@@ -40,27 +29,15 @@
       </VCol>
 
       <!-- Controls -->
+
       <VCol cols="12" md="4" lg="4" order="1" order-md="2">
         <VCard>
           <VCardText>
-            <VAutocomplete
-              ref="autocomplete"
-              v-model="selectedBarang"
-              v-model:search="searchTerm"
-              :items="filteredItems"
-              autofocus
-              item-title="nama"
-              label="Scan atau cari barang..."
-              return-object
-              clearable
-              @keyup.enter.prevent="onKeyup"
-              @update:focused="onFocused"
-              @update:model-value="onUpdatedModelValue"
-              class="mb-4"
-              hide-details
-              density="comfortable"
-              variant="solo-filled"
-            >
+            <VAutocomplete ref="autocomplete" v-model="selectedBarang" v-model:search="searchTerm"
+              :items="filteredItems" autofocus item-title="nama" label="Scan atau cari barang..." return-object
+              clearable @keyup.enter.prevent="onKeyup" @update:focused="onFocused"
+              @update:model-value="onUpdatedModelValue" class="mb-4" hide-details density="comfortable"
+              variant="solo-filled">
               <template #item="{ props, item }">
                 <VListItem v-bind="props">
                   <template #title>
@@ -74,24 +51,12 @@
             </VAutocomplete>
             <VRow>
               <VCol cols="4">
-                <VTextField
-                  ref="quantityInput"
-                  v-model.number="quantity"
-                  density="compact"
-                  hide-details
-                  label="Jumlah"
-                  type="number"
-                  @keyup.enter.prevent="tambahBarang"
-                />
+                <VTextField ref="quantityInput" v-model.number="quantity" density="compact" hide-details label="Jumlah"
+                  type="number" @keyup.enter.prevent="tambahBarang" />
               </VCol>
               <VCol cols="8">
-                <VTextField
-                  v-model="formattedHargaSatuan"
-                  hide-details
-                  label="Harga Satuan"
-                  readonly
-                  density="compact"
-                />
+                <VTextField v-model="formattedHargaSatuan" hide-details label="Harga Satuan" readonly
+                  density="compact" />
               </VCol>
             </VRow>
           </VCardText>
@@ -112,13 +77,7 @@
           </VCardText>
 
           <VCardActions class="pa-4">
-            <VBtn
-              :disabled="keranjang.length === 0"
-              block
-              color="success"
-              size="x-large"
-              @click="bayar"
-            >
+            <VBtn :disabled="keranjang.length === 0" block color="success" size="x-large" @click="bayar">
               <VIcon start="">{{ mdiIcon.mdiCashRegister }}</VIcon>
               Bayar
             </VBtn>
@@ -142,7 +101,7 @@ import * as mdiIcon from '@mdi/js'
 
 const autocomplete = ref(null)
 const quantityInput = ref(null)
-const { axiosGet, snackbar } = useAppStore()
+const { axiosGet, snackbar, setPageTitle } = useAppStore()
 
 const isBarcode = ref(false)
 
@@ -393,6 +352,7 @@ const updateItems = () => {
 }
 
 onMounted(() => {
+  setPageTitle('POS')
   updateItems()
   updateInterval = setInterval(updateItems, 300000) // 5 menit
 })
