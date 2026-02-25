@@ -15,22 +15,44 @@
             </VRow>
             <VRow>
               <VCol cols="12">
-                <VAutocomplete v-model="selectedBarang" v-model:search="searchTerm" :items="filterBarang"
-                  item-title="nama" item-value="id" label="Pilih Barang" return-object
-                  @update:model-value="onBarangSelected">
-
+                <VAutocomplete
+                  v-model="selectedBarang"
+                  v-model:search="searchTerm"
+                  :items="filterBarang"
+                  item-title="nama"
+                  item-value="id"
+                  label="Pilih Barang"
+                  return-object
+                  @update:model-value="onBarangSelected"
+                >
                 </VAutocomplete>
               </VCol>
             </VRow>
             <VRow>
               <VCol cols="12">
-                <VDataTable :headers="headers" :items="stockOpnameItems" :items-per-page="-1" class="elevation-1">
+                <VDataTable
+                  :headers="headers"
+                  :items="stockOpnameItems"
+                  :items-per-page="-1"
+                  class="elevation-1"
+                >
                   <template #item.qtyFisik="{ item }">
-                    <VTextField v-model.number="item.raw.qtyFisik" type="number" density="compact" hide-details
-                      @update:model-value="calculateSelisih(item.raw)"></VTextField>
+                    <VTextField
+                      v-model.number="item.raw.qtyFisik"
+                      type="number"
+                      density="compact"
+                      hide-details
+                      @update:model-value="calculateSelisih(item.raw)"
+                    ></VTextField>
                   </template>
                   <template #item.actions="{ item }">
-                    <VBtn icon="mdi-delete" size="small" color="error" variant="text" @click="removeBarang(item.raw)" />
+                    <VBtn
+                      icon="mdi-delete"
+                      size="small"
+                      color="error"
+                      variant="text"
+                      @click="removeBarang(item.raw)"
+                    />
                   </template>
                 </VDataTable>
               </VCol>
