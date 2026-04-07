@@ -81,7 +81,6 @@ function goToProfile() {
 function doLogin() {
   dialog.value = false
   const { username, password } = formData.value
-  console.log('login test')
   axiosPost('/user/login', { username, password }, { auth: false })
     .then((res) => {
       console.log(res)

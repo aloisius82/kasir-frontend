@@ -35,6 +35,10 @@ router.beforeEach((to, from, next) => {
 
   const appStore = useAppStore()
 
+  const validSession = appStore.checkSession()
+  if (!validSession) appStore.logout()
+  if (to.path === '/') return next()
+
   // Define public pages (routes that don't require authentication)
   const publicPages = ['/'] // Assuming '/' and '/homepage' are also public
 

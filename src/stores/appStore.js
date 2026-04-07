@@ -3,6 +3,7 @@
 
 import axios from 'axios'
 import { menus } from './menus'
+import { jwtDecode } from 'jwt-decode'
 // import { head } from 'lodash-es'
 
 const defaultOptionPost = {
@@ -47,10 +48,13 @@ export const useAppStore = defineStore('global-application', {
   getters: {
     isDark: (state) => state.currentTheme === 'dark',
     isLogin: (state) => state.token !== null,
-    getPageTitle: (state) => { 
-    console.log('Getting page title:', state.pageTitle)  
-      return state.pageTitle.value.length > 0 ? `Apotek Pilang - ${state.pageTitle}` : 'Apotek Pilang'
-    }, 
+    getPageTitle: (state) => {
+      const temp = state.pageTitle.toString()
+      console.log('getPageTitle', temp)
+      return state.pageTitle !== '' && state.pageTitle != null
+        ? `Apotek Pilang - ${state.pageTitle.toString()}`
+        : 'Apotek Pilang'
+    },
     userName: (state) => {
       if (state.user && state.user.name) return state.user.name
       return 'Guest'
@@ -186,6 +190,20 @@ export const useAppStore = defineStore('global-application', {
       this.token = null
       this.user = null
       this.role = null
+    },
+    checkSession() {
+      if (this.token == null) {
+        this.logout()
+        return false
+      }
+      const decodedToken = jwtDecode(this.token)
+      const currentTime = Math.floor(Date.now() / 1000)
+      if (decodedToken.exp < currentTime) {
+        this.logout()
+        return false
+      }
+      // Optionally, you can add logic here to verify the token's validity with the server
+      return true
     }
   }
 })
